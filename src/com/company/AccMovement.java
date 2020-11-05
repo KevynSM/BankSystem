@@ -18,15 +18,15 @@ public class AccMovement {
         return this.date;
     }
 
-    private double getValue() {
+    public double getValue() {
         return this.value;
     }
 
-    private double getTax(){
+    public double getTax(){
         return this.taxValue;
     }
 
-    private char getTypeMovement(){
+    public char getTypeMovement(){
         return this.typeMovement;
     }
 
