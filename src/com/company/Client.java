@@ -13,11 +13,11 @@ public class Client {
     private Contacts contacts;
     private List<Account> accounts;
 
-    Client(long idClient, String name, Date birthDay) {
+    Client(long idClient, String name, Date birthDay, char typeDocument, String numberDocument) {
         this.idClient = idClient;
         this.name = name;
         this.birthDay = birthDay;
-        this.documents = new Documents();
+        this.documents = new Documents(typeDocument, numberDocument);
         this.contacts = new Contacts();
     }
 
@@ -31,11 +31,6 @@ public class Client {
 
     public Address getAddress() {
         return this.address;
-    }
-
-    public void addDocuments(char typeDocument, String numberDocument) {
-        this.documents.setTypeDocument(typeDocument);
-        this.documents.setNumberDocument(numberDocument);
     }
 
     public Documents getDocuments() {
