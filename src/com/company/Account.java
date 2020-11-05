@@ -55,22 +55,21 @@ public class Account {
     public void credit(float value) {
         Tax tax = new Tax();
         this.accBalance = this.accBalance + value - tax.getValue();
-        this.accMovements.add(new AccMovement((String)actual_date(), value, tax, 'c'));
+        this.accMovements.add(new AccMovement(actual_date(), value, tax.getValue(), 'c'));
     }
 
-    public void debit(float value, double taxe) {
+    public void debit(float value) {
         if(this.accBalance - value >= 0){
-            this.accBalance = this.accBalance - value - taxe;
-            this.accMovements.add(new AccMovement((String)actual_date(), value, taxe, 'd'));
-        }else {
-
+            Tax tax = new Tax();
+            this.accBalance = this.accBalance - value - tax.getValue();
+            this.accMovements.add(new AccMovement(actual_date(), value, tax.getValue(), 'd'));
         }
     }
 
     private String actual_date() {
         Date data = new Date(System.currentTimeMillis());
-        SimpleDateFormat formatarDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return formatarDate.format(data);
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatDate.format(data);
     }
 
 
