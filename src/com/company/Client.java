@@ -25,7 +25,7 @@ public class Client {
         return this.idClient;
     }
 
-    public void addAddres(String street, String postalCode, String city, String country) {
+    public void addAddress(String street, String postalCode, String city, String country) {
         this.address = new Address(street, postalCode, city, country);
     }
 
@@ -39,7 +39,7 @@ public class Client {
 
     public void addContacts(String email, int number) {
         this.contacts.setEmail(email);
-        this.contacts.setNumber(number);
+        this.contacts.setPhoneNumber(number);
     }
 
     public void addContacts(String email) {
@@ -47,7 +47,7 @@ public class Client {
     }
 
     public void addContacts(int number) {
-        this.contacts.setNumber(number);
+        this.contacts.setPhoneNumber(number);
     }
 
     public Contacts getContacts() {
