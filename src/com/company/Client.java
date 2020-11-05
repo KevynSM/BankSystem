@@ -1,6 +1,7 @@
 package com.company;
 
 import java.sql.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -19,6 +20,7 @@ public class Client {
         this.birthDay = birthDay;
         this.documents = new Documents(typeDocument, numberDocument);
         this.contacts = new Contacts();
+        this.accounts = new LinkedList<Account>();
     }
 
     public long getIdClient() {
