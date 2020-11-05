@@ -2,6 +2,7 @@ package com.company;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Account {
@@ -14,6 +15,8 @@ public class Account {
     public Account(long accId, Client mainClient) {
         this.accId = accId;
         this.mainClient = mainClient;
+        this.otherClients =  new LinkedList<Client>();
+        this.accMovements = new LinkedList<AccMovement>();
     }
 
     public long getAccId() {
@@ -52,13 +55,13 @@ public class Account {
         return this.accBalance;
     }
 
-    public void credit(float value) {
+    public void credit(double value) {
         Tax tax = new Tax();
         this.accBalance = this.accBalance + value - tax.getValue();
         this.accMovements.add(new AccMovement(actual_date(), value, tax.getValue(), 'c'));
     }
 
-    public void debit(float value) {
+    public void debit(double value) {
         if(this.accBalance - value >= 0){
             Tax tax = new Tax();
             this.accBalance = this.accBalance - value - tax.getValue();
