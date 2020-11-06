@@ -19,9 +19,7 @@ public class Account {
         this.accMovements = new LinkedList<AccMovement>();
     }
 
-    public long getAccId() {
-        return this.accId;
-    }
+    public long getAccId() { return this.accId; }
 
     public void setMainClient(Client mainClient) {
         this.mainClient = mainClient;

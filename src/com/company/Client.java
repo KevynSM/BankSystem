@@ -14,7 +14,7 @@ public class Client {
     private Contacts contacts;
     private List<Account> accounts;
 
-    Client(long idClient, String name, Date birthDay, char typeDocument, String numberDocument) {
+    Client(long idClient, String name, Date birthDay, char typeDocument, String numberDocument, String email, String phoneNumber) {
         this.idClient = idClient;
         this.name = name;
         this.birthDay = birthDay;

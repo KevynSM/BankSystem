@@ -8,7 +8,7 @@ class ContactsTest {
 
     @Test
     void Email() {
-        Contacts contacts = new Contacts();
+        Contacts contacts = new Contacts(null,0);
         assertEquals(contacts.getEmail(), null);
         contacts.setEmail("person@someplace.com");
         assertEquals(contacts.getEmail(), "person@someplace.com");
@@ -16,7 +16,7 @@ class ContactsTest {
 
     @Test
     void PhoneNumber() {
-        Contacts contacts = new Contacts();
+        Contacts contacts = new Contacts(null, 0);
         assertEquals(contacts.getPhoneNumber(), 0);
         contacts.setPhoneNumber(111111111);
         assertEquals(contacts.getPhoneNumber(), 111111111);
