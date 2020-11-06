@@ -14,12 +14,12 @@ public class Client {
     private Contacts contacts;
     private List<Account> accounts;
 
-    Client(long idClient, String name, Date birthDay, char typeDocument, String numberDocument, String email, String phoneNumber) {
+    Client(long idClient, String name, Date birthDay, char typeDocument, String numberDocument, String email, int phoneNumber) {
         this.idClient = idClient;
         this.name = name;
         this.birthDay = birthDay;
         this.documents = new Documents(typeDocument, numberDocument);
-        this.contacts = new Contacts();
+        this.contacts = new Contacts(email, phoneNumber);
         this.accounts = new LinkedList<Account>();
     }
 

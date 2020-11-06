@@ -11,7 +11,7 @@ class AccountTest {
     @Test
     void getAccId() {
         Date birthDay = new Date(1980,01,01);
-        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001");
+        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001", null, 0);
         Account account = new Account(50001, client);
         assertEquals(account.getAccId(), 50001);
     }
@@ -19,9 +19,9 @@ class AccountTest {
     @Test
     void mainClient() {
         Date birthDay = new Date(1980,01,01);
-        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001");
+        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001", null, 0);
         Account account = new Account(50001, client);
-        Client newClient = new Client(10001, "Nome2 Apelido2", birthDay, 'B', "ABC001");
+        Client newClient = new Client(10001, "Nome2 Apelido2", birthDay, 'B', "ABC001", null, 0);
         assertEquals(account.getMainClient(), client);
         account.setMainClient(newClient);
         assertEquals(account.getMainClient(), newClient);
@@ -30,9 +30,9 @@ class AccountTest {
     @Test
     void otherClients() {
         Date birthDay = new Date(1980,01,01);
-        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001");
+        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001", null, 0);
         Account account = new Account(50001, client);
-        Client otherClient = new Client(10001, "Nome2 Apelido2", birthDay, 'B', "ABC001");
+        Client otherClient = new Client(10001, "Nome2 Apelido2", birthDay, 'B', "ABC001", null, 0);
         account.addOtherClients(otherClient);
         assertTrue(account.getOtherClients().contains(otherClient));
         account.removeOtherClients(otherClient);
@@ -42,7 +42,7 @@ class AccountTest {
     @Test
     void accMovements() {
         Date birthDay = new Date(1980,01,01);
-        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001");
+        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001", null, 0);
         Account account = new Account(50001, client);
         AccMovement accMovement = new AccMovement("01/01/2020", 100.00, 0.49, 'D');
         account.addAccMovements(accMovement);
@@ -52,7 +52,7 @@ class AccountTest {
     @Test
     void credit() {
         Date birthDay = new Date(1980,01,01);
-        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001");
+        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001", null, 0);
         Account account = new Account(50001, client);
         account.credit(1000.00);
         Tax tax = new Tax();
@@ -62,7 +62,7 @@ class AccountTest {
     @Test
     void debit() {
         Date birthDay = new Date(1980,01,01);
-        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001");
+        Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001", null, 0);
         Account account = new Account(50001, client);
         account.credit(1000.00);
         Tax tax = new Tax();

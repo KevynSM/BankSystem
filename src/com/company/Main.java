@@ -3,7 +3,7 @@ package com.company;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +14,7 @@ public class Main {
 	    Tax tax = new Tax();
 	    List<Account> accounts = new LinkedList<Account>();
 	    List<Client> clients = new LinkedList<Client>();
-	    Boolean stop = true;
+	    boolean stop = true;
         Scanner sc = new Scanner(System.in);
 	    System.out.println("Sistema Bancário V1.0\n");
 
