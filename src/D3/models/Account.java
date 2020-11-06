@@ -32,6 +32,19 @@ public class Account {
         this.accMovements = new LinkedList<AccMovement>();
     }
 
+    /** Create a new Account with the given parameters.
+     *
+     * @param accId The identification number of the Account.
+     * @param mainClient The main Client of the Account.
+     */
+    public Account(long accId, Client mainClient, double firstDeposit) {
+        this.accId = accId;
+        this.mainClient = mainClient;
+        this.accBalance = firstDeposit;
+        this.otherClients =  new LinkedList<Client>();
+        this.accMovements = new LinkedList<AccMovement>();
+    }
+
     /** Returns the identification number of the Account.
      *
      * @return the identification number of the Account.

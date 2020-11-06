@@ -53,10 +53,10 @@ class AccountTest {
     void credit() {
         Date birthDay = new Date(1980,01,01);
         Client client = new Client(10001, "Nome Apelido", birthDay, 'B', "ABC001", null, 0);
-        Account account = new Account(50001, client);
+        Account account = new Account(50001, client, 1000.00);
         account.credit(1000.00);
         Tax tax = new Tax();
-        assertEquals(account.getAccBalance(), 1000.00 - tax.getValue());
+        assertEquals(account.getAccBalance(), 2000.00 - tax.getValue());
     }
 
     @Test
