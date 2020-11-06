@@ -59,7 +59,35 @@ public class Main {
     }
 
     static void commandRC(List<Account> accounts, List<Client> clients, Tax tax) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        //inserir nome
+        System.out.println("Insira o nome: ");
+        String name = sc.next();
 
+        //inserir data de nascimento
+        System.out.println("Insira Data de Nascimento (aaaa/mm/dd):  ");
+        Date birthDay = new Date();
+        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");;
+        birthDay = sdf.parse(sc.next());
+
+        //inserir documento
+        System.out.println("Inserir dados do Documento ");
+        System.out.println("Tipo de Documento (C-Cartão de Cidadão ou P-Passaporte): ");
+        char typeDocument = sc.next().charAt(0);
+        System.out.println("Número de Documento: ");
+        String numberDocument = sc.next();
+
+        //inserir email
+        System.out.println("Inserir Email: ");
+        String email = sc.next();
+
+        //inserir contacto
+        System.out.println("Inserir Contacto Telefónico: ");
+        String phoneNumber = sc.next();
+        long idClient = clients.size() + 1;
+
+
+        clients.add(new Client(idClient, name, birthDay, typeDocument, numberDocument, email, phoneNumber));
 
     }
     static void commandAC(List<Account> accounts, List<Client> clients, Tax tax){
