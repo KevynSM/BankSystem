@@ -47,7 +47,7 @@ public class Main {
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Comando inserido não foi reconhecido.");
+                    System.out.println("Comando inserido não foi reconhecido.\n");
 
             }
 
@@ -103,6 +103,9 @@ public class Main {
         //inserir contacto
         System.out.print("\nInserir Contacto Telefónico: ");
         int phoneNumber = sc.nextInt();
+
+
+
 
         bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber);
         System.out.println("\nCliente Adicionado com sucesso!\n");

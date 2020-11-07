@@ -132,8 +132,10 @@ public class Client {
 
     public String toString(){
         return "1) Name: " + this.name + "\n2) Birthday: " + birthDay +"\n3) Email: " + this.getContacts().getEmail() +
-                "\n4) Phone Number: " + this.getContacts().getPhoneNumber() + "\n Type Document: " + this.getDocuments().getTypeDocument()
-                + "\n Number Document: " + this.getDocuments().getNumberDocument();
+                "\n4) Phone Number: " + this.getContacts().getPhoneNumber() + "\n5) Address\n\tStreet: " + this.address.getStreet() +
+                "\n\tPostal Code: " + this.address.getPostalCode() + "\n\tCity: " + this.address.getCity() +
+                "\n\tCountry: " + this.address.getCountry() + "\n Type Document: " + this.getDocuments().getTypeDocument() +
+                "\n Number Document: " + this.getDocuments().getNumberDocument();
 
     }
 
