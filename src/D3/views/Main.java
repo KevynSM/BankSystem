@@ -108,16 +108,16 @@ public class Main {
         System.out.println("\nInserir Endereço ");
 
         System.out.print("Street: ");
-        String street = sc.next();
+        String street = sc.next(); sc.nextLine();
 
         System.out.print("Postal Code: ");
-        String postalCode = sc.nextLine();
+        String postalCode = sc.next(); sc.nextLine();
 
         System.out.print("City: ");
-        String city = sc.next();
+        String city = sc.next(); sc.nextLine();
 
         System.out.print("Country: ");
-        String country = sc.nextLine();
+        String country = sc.next();
 
 
         bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber, street, postalCode, city, country);
