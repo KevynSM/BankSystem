@@ -4,13 +4,13 @@ public class Address {
     private String street;
     private String postalCode;
     private String city;
-    private String county;
+    private String country;
 
     Address(String street, String postalCode, String city, String country) {
         this.street = street;
         this.postalCode = postalCode;
         this.city = city;
-        this.county = country;
+        this.country = country;
     }
 
     public String getStreet() {
@@ -26,6 +26,6 @@ public class Address {
     }
 
     public String getCountry() {
-        return this.county;
+        return this.country;
     }
 }

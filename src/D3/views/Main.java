@@ -104,10 +104,23 @@ public class Main {
         System.out.print("\nInserir Contacto Telefónico: ");
         int phoneNumber = sc.nextInt();
 
+        //inserir endereço
+        System.out.println("\nInserir Endereço ");
+
+        System.out.print("Street: ");
+        String street = sc.next();
+
+        System.out.print("Postal Code: ");
+        String postalCode = sc.nextLine();
+
+        System.out.print("City: ");
+        String city = sc.next();
+
+        System.out.print("Country: ");
+        String country = sc.nextLine();
 
 
-
-        bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber);
+        bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber, street, postalCode, city, country);
         System.out.println("\nCliente Adicionado com sucesso!\n");
     }
     static void commandAC(Bank bk, Scanner sc){

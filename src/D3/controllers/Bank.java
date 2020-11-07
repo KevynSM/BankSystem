@@ -13,9 +13,12 @@ public class Bank {
     List<Account> accounts = new LinkedList<Account>();
     List<Client> clients = new LinkedList<Client>();
 
-    public void add_client(String name, Date birthDay, char typeDocument, String numberDocument, String email, int phoneNumber){
+    public void add_client(String name, Date birthDay, char typeDocument, String numberDocument, String email, int phoneNumber, String street, String postalCode, String city, String country){
         long idClient = clients.size() + 1;
-        clients.add(new Client(idClient, name, birthDay, typeDocument, numberDocument, email, phoneNumber));
+        Client a = new Client(idClient, name, birthDay, typeDocument, numberDocument, email, phoneNumber);
+        a.addAddress(street, postalCode, city, country);
+        clients.add(a);
+
     }
 
     public boolean document_existent(String numberDocument){
