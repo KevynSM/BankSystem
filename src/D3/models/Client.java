@@ -48,6 +48,11 @@ public class Client {
         return this.idClient;
     }
 
+    public void setName(String name){ this.name = name; }
+
+
+    public void setBirthDay(Date birthDay){ this.birthDay = birthDay; }
+
     /** Add a new Address object created with the given parameters
      *
      * @param street The street of the Client's address
@@ -123,6 +128,13 @@ public class Client {
      */
     public List<Account> getAccounts() {
         return this.accounts;
+    }
+
+    public String toString(){
+        return "1) Name: " + this.name + "\n2) Birthday: " + birthDay +"\n3) Email: " + this.getContacts().getEmail() +
+                "\n4) Phone Number: " + this.getContacts().getPhoneNumber() + "\n Type Document: " + this.getDocuments().getTypeDocument()
+                + "\n Number Document: " + this.getDocuments().getNumberDocument();
+
     }
 
 }

@@ -7,8 +7,6 @@ import D3.models.Client;
 
 
 import java.sql.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -20,32 +18,32 @@ public class Main {
 
 
         while(true){
-            System.out.print("Insira um Comando: ");
+            System.out.print("Insira um Comando (0 para terminar): ");
             String comm = sc.next();
            // String[] comm2 = comm.split(" ", 8);
 
             switch (comm){
                 case "RC":
-                    commandRC(bk);
+                    commandRC(bk, sc);
                     break;
 
                 case "AC":
-                    commandAC(bk);
+                    commandAC(bk, sc);
                     break;
 
                 case "NC":
-                    commandNC(bk);
+                    commandNC(bk, sc);
                     break;
 
                 case "M":
-                    commandM(bk);
+                    commandM(bk, sc);
                     break;
 
                 case "SC":
-                    commandSC(bk);
+                    commandSC(bk, sc);
                     break;
 
-                case "":
+                case "0":
                     System.exit(0);
                     break;
                 default:
@@ -57,19 +55,18 @@ public class Main {
 
     }
 
-    static void commandRC(Bank bk) {
-        Scanner sc = new Scanner(System.in);
+    static void commandRC(Bank bk, Scanner sc) {
         //inserir nome
-        System.out.println("Insira o nome: ");
+        System.out.print("Insira o nome: ");
         String name = sc.next();
 
         //inserir data de nascimento
-        System.out.println("Insira Data de Nascimento (aaaa/mm/dd):  ");
+        System.out.print("\nInsira Data de Nascimento (aaaa/mm/dd):  ");
         String birthDayString = sc.next();
         int year, month, day;
-        year = Integer.parseInt(birthDayString.substring(0, 5));
-        month = Integer.parseInt(birthDayString.substring(5, 7));
-        day = Integer.parseInt(birthDayString.substring(8, 10));
+        year = Integer.parseInt(birthDayString.substring(0, 3));
+        month = Integer.parseInt(birthDayString.substring(5, 6));
+        day = Integer.parseInt(birthDayString.substring(8, 9));
         Date birthDay = new Date(year, month, day);
         //DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         //birthDay = sdf.parse(sc.next());
@@ -77,39 +74,91 @@ public class Main {
         //inserir documento
 
 
-        System.out.println("Inserir dados do Documento ");
-        System.out.println("Tipo de Documento (C-Cartão de Cidadão ou P-Passaporte): ");
+        System.out.println("\nInserir dados do Documento ");
+
+
+        //tipo do documento
+        System.out.print("Tipo de Documento (C-Cartão de Cidadão ou P-Passaporte): ");
         char typeDocument = sc.next().charAt(0);
-        System.out.println("Número de Documento: ");
+
+        while(typeDocument != 'C' && typeDocument != 'P') {
+            System.out.println("\nTipo de Documento não aceite.\nApenas é aceite C-Cartão de Cidadão ou P-Passaporte.  ");
+            System.out.print("Insira outra vez o Tipo de Documente aceite: ");
+            typeDocument = sc.next().charAt(0);
+        }
+
+
+        //numero do documento
+        System.out.print("\nNúmero de Documento: ");
         String numberDocument = sc.next();
-        do {
-            if (bk.document_existent(numberDocument)) {
-                System.out.println("Número de Documento já registado. ");
-                System.out.println("Insira outro Número de Documento: ");
-                numberDocument = sc.next();
-            }
-        }while(!bk.document_existent(numberDocument));
+        while(bk.document_existent(numberDocument)){
+            System.out.println("\nNúmero de Documento já registado. ");
+            System.out.print("Insira outro Número de Documento: ");
+            numberDocument = sc.next();
+        }
         //inserir email
-        System.out.println("Inserir Email: ");
+        System.out.print("\nInserir Email: ");
         String email = sc.next();
 
         //inserir contacto
-        System.out.println("Inserir Contacto Telefónico: ");
+        System.out.print("\nInserir Contacto Telefónico: ");
         int phoneNumber = sc.nextInt();
 
         bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber);
-        System.out.println("Cliente Adicionado com sucesso!");
+        System.out.println("\nCliente Adicionado com sucesso!\n");
     }
-    static void commandAC(Bank bk){
+    static void commandAC(Bank bk, Scanner sc){
+        System.out.print("Insira o número do documento:");
+        String numberDocument = sc.next();
+
+        while(!bk.document_existent(numberDocument)) {
+            System.out.println("\nNúmero de Documento inserido não está registado. ");
+            System.out.print("Insira outro Número de Documento: ");
+            numberDocument = sc.next();
+
+        }
+        System.out.println("\n\nAlteração dos dados do Cliente");
+        System.out.println(bk.data_client(numberDocument));
+        System.out.print("Insira o número do dado que quer alterar: ");
+        int opcao = sc.nextInt();
+        switch(opcao){
+            case 1:
+                System.out.print("Novo Nome: ");
+                String name = sc.next();
+                bk.alter_client_name(numberDocument,name);
+
+                break;
+            case 2:
+                System.out.print("Nova Datebirth: ");
+                String birthDayString = sc.next();
+                int year, month, day;
+                year = Integer.parseInt(birthDayString.substring(0, 3));
+                month = Integer.parseInt(birthDayString.substring(5, 6));
+                day = Integer.parseInt(birthDayString.substring(8, 9));
+                Date birthDay = new Date(year, month, day);
+                bk.alter_client_birthDay(numberDocument, birthDay);
+
+                break;
+            case 3:
+                System.out.print("Novo Email: ");
+                String email = sc.next();
+                bk.alter_client_email(numberDocument,email);
+                break;
+            case 4:
+                System.out.print("Novo Contacto Telefónico: ");
+                int phoneNumber = sc.nextInt();
+                bk.alter_client_phoneNumber(numberDocument,phoneNumber);
+                break;
+        }
 
     }
-    static void commandNC(Bank bk){
+    static void commandNC(Bank bk, Scanner sc){
 
     }
-    static void commandM(Bank bk){
+    static void commandM(Bank bk, Scanner sc){
 
     }
-    static void commandSC(Bank bk){
+    static void commandSC(Bank bk, Scanner sc){
 
     }
 }

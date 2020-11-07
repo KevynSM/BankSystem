@@ -20,11 +20,55 @@ public class Bank {
 
     public boolean document_existent(String numberDocument){
         for(int i=0;i<clients.size();i++){
-            if (clients.get(i).getDocuments().getNumberDocument() == numberDocument){
+            if (clients.get(i).getDocuments().getNumberDocument().equalsIgnoreCase(numberDocument)){
                 return true;
             }
         }
         return false;
     }
 
+    public String data_client(String numberDocument){
+        for(int i=0;i<clients.size();i++){
+            if (clients.get(i).getDocuments().getNumberDocument().equalsIgnoreCase(numberDocument)){
+                return clients.get(i).toString();
+            }
+        }
+        return "";
+    }
+
+    public void alter_client_name(String numberDocument,String name){
+        for(int i=0;i<clients.size();i++){
+            if (clients.get(i).getDocuments().getNumberDocument().equalsIgnoreCase(numberDocument)){
+                clients.get(i).setName(name);
+            }
+        }
+    }
+    public void alter_client_birthDay(String numberDocument,Date birthDay){
+        for(int i=0;i<clients.size();i++){
+            if (clients.get(i).getDocuments().getNumberDocument().equalsIgnoreCase(numberDocument)){
+                clients.get(i).setBirthDay(birthDay);
+            }
+        }
+    }
+    public void alter_client_email(String numberDocument,String email){
+        for(int i=0;i<clients.size();i++){
+            if (clients.get(i).getDocuments().getNumberDocument().equalsIgnoreCase(numberDocument)){
+                clients.get(i).addContacts(email);
+            }
+        }
+    }
+    public void alter_client_phoneNumber(String numberDocument,int phoneNumber){
+        for(int i=0;i<clients.size();i++){
+            if (clients.get(i).getDocuments().getNumberDocument().equalsIgnoreCase(numberDocument)){
+                clients.get(i).addContacts(phoneNumber);
+            }
+        }
+    }
+    public void imprimir_clientes(){
+        for(int i=0;i<clients.size();i++){
+            System.out.println(clients.get(i).getDocuments().getNumberDocument());
+            System.out.println(clients.size());
+                System.out.println(clients.get(i).toString());
+        }
+    }
 }
