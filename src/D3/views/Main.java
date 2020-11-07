@@ -1,12 +1,11 @@
 package D3.views;
 
+import D3.controllers.Bank;
 import D3.models.Tax;
 import D3.models.Account;
 import D3.models.Client;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,44 +13,40 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws ParseException {
-	    Tax tax = new Tax();
-	    List<Account> accounts = new LinkedList<Account>();
-	    List<Client> clients = new LinkedList<Client>();
-	    boolean stop = true;
+    public static void main(String[] args){
+	    Bank bk = new Bank();
         Scanner sc = new Scanner(System.in);
 	    System.out.println("Sistema Bancário V1.0\n");
 
 
-        while(stop){
+        while(true){
             System.out.print("Insira um Comando: ");
             String comm = sc.next();
            // String[] comm2 = comm.split(" ", 8);
 
             switch (comm){
                 case "RC":
-                    commandRC(accounts, clients, tax);
+                    commandRC(bk);
                     break;
 
                 case "AC":
-                    commandAC(accounts, clients, tax);
+                    commandAC(bk);
                     break;
 
                 case "NC":
-                    commandNC(accounts, clients, tax);
+                    commandNC(bk);
                     break;
 
                 case "M":
-                    commandM(accounts, clients, tax);
+                    commandM(bk);
                     break;
 
                 case "SC":
-                    commandSC(accounts, clients, tax);
+                    commandSC(bk);
                     break;
 
                 case "":
-                    stop = false;
-                    //System.exit(0);
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Comando inserido não foi reconhecido.");
@@ -62,7 +57,7 @@ public class Main {
 
     }
 
-    static void commandRC(List<Account> accounts, List<Client> clients, Tax tax) throws ParseException {
+    static void commandRC(Bank bk) {
         Scanner sc = new Scanner(System.in);
         //inserir nome
         System.out.println("Insira o nome: ");
@@ -80,12 +75,20 @@ public class Main {
         //birthDay = sdf.parse(sc.next());
 
         //inserir documento
+
+
         System.out.println("Inserir dados do Documento ");
         System.out.println("Tipo de Documento (C-Cartão de Cidadão ou P-Passaporte): ");
         char typeDocument = sc.next().charAt(0);
         System.out.println("Número de Documento: ");
         String numberDocument = sc.next();
-
+        do {
+            if (bk.document_existent(numberDocument)) {
+                System.out.println("Número de Documento já registado. ");
+                System.out.println("Insira outro Número de Documento: ");
+                numberDocument = sc.next();
+            }
+        }while(!bk.document_existent(numberDocument));
         //inserir email
         System.out.println("Inserir Email: ");
         String email = sc.next();
@@ -93,22 +96,20 @@ public class Main {
         //inserir contacto
         System.out.println("Inserir Contacto Telefónico: ");
         int phoneNumber = sc.nextInt();
-        long idClient = clients.size() + 1;
 
-
-        clients.add(new Client(idClient, name, birthDay, typeDocument, numberDocument, email, phoneNumber));
+        bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber);
+        System.out.println("Cliente Adicionado com sucesso!");
+    }
+    static void commandAC(Bank bk){
 
     }
-    static void commandAC(List<Account> accounts, List<Client> clients, Tax tax){
+    static void commandNC(Bank bk){
 
     }
-    static void commandNC(List<Account> accounts, List<Client> clients, Tax tax){
+    static void commandM(Bank bk){
 
     }
-    static void commandM(List<Account> accounts, List<Client> clients, Tax tax){
-
-    }
-    static void commandSC(List<Account> accounts, List<Client> clients, Tax tax){
+    static void commandSC(Bank bk){
 
     }
 }
