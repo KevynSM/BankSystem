@@ -16,12 +16,13 @@ public class Main {
     public static void main(String[] args){
 	    Bank bk = new Bank();
         Scanner sc = new Scanner(System.in);
+        Scanner sc2 = new Scanner(System.in);
 	    System.out.println("Banking system V1.0\n");
 
 
         while(true){
             System.out.print("Insert a Command (0 to finish): ");
-            String comm = sc.nextLine();
+            String comm = sc2.next();
            // String[] comm2 = comm.split(" ", 8);
 
             switch (comm){
@@ -61,10 +62,12 @@ public class Main {
         //inserir nome
         System.out.print("Insert the name: ");
         String name = sc.nextLine();
+        sc.nextLine();
 
         //inserir data de nascimento
         System.out.print("\nInsert the birth date (yyyy/mm/dd):  ");
         String birthDayString = sc.next();
+        sc.nextLine();
         int year, month, day;
         year = Integer.parseInt(birthDayString.substring(0, 3));
         month = Integer.parseInt(birthDayString.substring(5, 6));
@@ -83,7 +86,7 @@ public class Main {
         System.out.print("Type of the document (C-Citizen Card or P-Passport): ");
         char typeDocument = sc.next().charAt(0);
 
-        while(typeDocument != 'C' && typeDocument != 'P') {
+        while (typeDocument != 'C' && typeDocument != 'P') {
             System.out.println("\nType of document was not recognized.\nIt is only allowed C-Citizen Card or P-Passport.  ");
             System.out.print("Insert again the document type allowed: ");
             typeDocument = sc.next().charAt(0);
@@ -93,37 +96,45 @@ public class Main {
         //numero do documento
         System.out.print("\nDocument number: ");
         String numberDocument = sc.next();
-        while(bk.document_existent(numberDocument)){
+        if (bk.document_existent(numberDocument)) {
             System.out.println("\nDocument number already registered. ");
-            System.out.print("Insert another document number: ");
-            numberDocument = sc.next();
+            sc.nextLine();
+//            System.out.print("Insert another document number: ");
+//            numberDocument = sc.next();
+        } else {
+            //inserir email
+            System.out.print("\nInsert Email: ");
+            String email = sc.next();
+            sc.nextLine();
+
+            //inserir contacto
+            System.out.print("\nInsert phone number: ");
+            int phoneNumber = sc.nextInt();
+            sc.nextLine();
+
+            //inserir endereço
+            System.out.println("\nInsert address ");
+
+            System.out.print("Street: ");
+            String street = sc.nextLine();
+            sc.nextLine();
+
+            System.out.print("Postal Code: ");
+            String postalCode = sc.nextLine();
+            sc.nextLine();
+
+            System.out.print("City: ");
+            String city = sc.nextLine();
+            sc.nextLine();
+
+            System.out.print("Country: ");
+            String country = sc.nextLine();
+            sc.nextLine();
+
+
+            bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber, street, postalCode, city, country);
+            System.out.println("\nClient added successfully!\n");
         }
-        //inserir email
-        System.out.print("\nInsert Email: ");
-        String email = sc.next();
-
-        //inserir contacto
-        System.out.print("\nInsert phone number: ");
-        int phoneNumber = sc.nextInt();
-
-        //inserir endereço
-        System.out.println("\nInsert address ");
-
-        System.out.print("Street: ");
-        String street = sc.next(); sc.nextLine();
-
-        System.out.print("Postal Code: ");
-        String postalCode = sc.next(); sc.nextLine();
-
-        System.out.print("City: ");
-        String city = sc.next(); sc.nextLine();
-
-        System.out.print("Country: ");
-        String country = sc.next();
-
-
-        bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber, street, postalCode, city, country);
-        System.out.println("\nClient added successfully!\n");
     }
     static void commandAC(Bank bk, Scanner sc){
         System.out.print("Insert the document number:");
