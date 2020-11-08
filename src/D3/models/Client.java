@@ -50,8 +50,12 @@ public class Client {
 
     public void setName(String name){ this.name = name; }
 
+    public String getName(){ return this.name;}
+
 
     public void setBirthDay(Date birthDay){ this.birthDay = birthDay; }
+
+    public Date getBirthDay(){ return this.birthDay;}
 
     /** Add a new Address object created with the given parameters
      *
