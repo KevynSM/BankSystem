@@ -144,11 +144,5 @@ public class Bank {
             }
         }
     }
-    public void imprimir_clientes(){
-        for(int i=0;i<clients.size();i++){
-            System.out.println(clients.get(i).getDocuments().getNumberDocument());
-            System.out.println(clients.size());
-                System.out.println(clients.get(i).toString());
-        }
-    }
+
 }

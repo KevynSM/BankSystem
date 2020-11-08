@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -191,4 +192,92 @@ public class BankTest {
         assertEquals(bk.clients.get(0).getAddress().getCity(), "Porto");
         assertEquals(bk.clients.get(0).getAddress().getCountry(), "France");
     }
+
+    @Test
+    void accountTest() {
+        // Main Client
+        String name = "Rui";
+        Date birthDay = new Date(1980,01,01);
+        char typeDocument = 'C';
+        String numberDocument = "12345678";
+        String email = "rui@gmail.com";
+        int phoneNumber = 912345678;
+        String street = "Rua de Mil Fontes";
+        String postalCode = "2635-123";
+        String city = "Lisboa";
+        String country = "Portugal";
+        bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber, street, postalCode, city, country);
+
+        //Other Client
+        String name2 = "Rui";
+        Date birthDay2 = new Date(1980,01,01);
+        char typeDocument2 = 'C';
+        String numberDocument2 = "87654321";
+        String email2 = "rui@gmail.com";
+        int phoneNumber2 = 912345678;
+        String street2 = "Rua de Mil Fontes";
+        String postalCode2 = "2635-123";
+        String city2 = "Lisboa";
+        String country2 = "Portugal";
+        bk.add_client(name2, birthDay2, typeDocument2, numberDocument2, email2, phoneNumber2, street2, postalCode2, city2, country2);
+
+
+        List<String> numberDocumentOthers = new LinkedList<String>();
+        numberDocumentOthers.add(numberDocument2);
+
+        assertEquals(bk.add_account(numberDocument, numberDocumentOthers, 1000.00), bk.accounts.size());
+
+        assertTrue(bk.account_existent(bk.clients.get(0).getAccounts().get(0).getAccId()));
+        assertFalse(bk.account_existent(bk.accounts.size() + 1));
+
+        assertEquals(bk.balance_account(bk.clients.get(0).getAccounts().get(0).getAccId()), 1000.00);
+        assertEquals(bk.balance_account(bk.accounts.size() + 1), 0);
+
+        assertEquals(bk.idAccounts_Client(numberDocument).get(0), bk.clients.get(0).getAccounts().get(0).getAccId());
+
+        assertFalse(bk.debit_account(bk.accounts.size() + 1, 2000.00));
+        assertTrue(bk.debit_account(bk.clients.get(0).getAccounts().get(0).getAccId(), 200.00));
+
+        bk.credit_account(bk.clients.get(0).getAccounts().get(0).getAccId(), 1000.00);
+        assertEquals(bk.balance_account(bk.clients.get(0).getAccounts().get(0).getAccId()), 1000 - 200 - bk.tax.getValue() + 1000 - bk.tax.getValue());
+
+
+    }
+
+    @Test
+    void add_acocount_with_value() {
+        // Main Client
+        String name = "Rui";
+        Date birthDay = new Date(1980,01,01);
+        char typeDocument = 'C';
+        String numberDocument = "12345678";
+        String email = "rui@gmail.com";
+        int phoneNumber = 912345678;
+        String street = "Rua de Mil Fontes";
+        String postalCode = "2635-123";
+        String city = "Lisboa";
+        String country = "Portugal";
+        bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber, street, postalCode, city, country);
+
+        //Other Client
+        String name2 = "Rui";
+        Date birthDay2 = new Date(1980,01,01);
+        char typeDocument2 = 'C';
+        String numberDocument2 = "87654321";
+        String email2 = "rui@gmail.com";
+        int phoneNumber2 = 912345678;
+        String street2 = "Rua de Mil Fontes";
+        String postalCode2 = "2635-123";
+        String city2 = "Lisboa";
+        String country2 = "Portugal";
+        bk.add_client(name2, birthDay2, typeDocument2, numberDocument2, email2, phoneNumber2, street2, postalCode2, city2, country2);
+
+
+        List<String> numberDocumentOthers = new LinkedList<String>();
+        numberDocumentOthers.add(numberDocument2);
+
+        assertEquals(bk.add_account(numberDocument, numberDocumentOthers, 0), bk.accounts.size());
+    }
+
+
 }

@@ -69,5 +69,6 @@ class AccountTest {
         assertEquals(account.getAccBalance(), 1000.00 - tax.getValue());
         account.debit(500.00);
         assertEquals(account.getAccBalance(), 500.00 - 2*tax.getValue());
+        assertFalse(account.debit(1000.00));
     }
 }
