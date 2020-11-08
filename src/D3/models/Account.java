@@ -138,11 +138,6 @@ public class Account {
         }else{return false;}
     }
 
-
-    /** Returns the actual time of an account operation.
-     *
-     * @return the actual time of an account operation.
-     */
     private String actual_date() {
         Date data = new Date(System.currentTimeMillis());
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

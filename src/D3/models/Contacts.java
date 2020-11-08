@@ -1,7 +1,7 @@
 package D3.models;
 
 
-/** Represents a Contact in a Bank.
+/** Represents a Contact of a Client in a Bank.
  * @author Diurno - Grupo 3.
  * @author Daniel Almeida.
  * @author João Conduto.

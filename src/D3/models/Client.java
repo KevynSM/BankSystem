@@ -134,6 +134,10 @@ public class Client {
         return this.accounts;
     }
 
+    /** Override of the method toString.
+     *
+     * @return A string with all the information of the client.
+     */
     public String toString(){
         return "1) Name: " + this.name + "\n2) Birthday: " + birthDay +"\n3) Email: " + this.getContacts().getEmail() +
                 "\n4) Phone Number: " + this.getContacts().getPhoneNumber() + "\n5) Address\n\tStreet: " + this.address.getStreet() +
