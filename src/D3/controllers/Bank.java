@@ -76,24 +76,28 @@ public class Bank {
     }
     public long add_account(String numberDocumentMain, List<String> numberDocumentOthers, double value){
         int posAccount = accounts.size();
+        Account acc = null;
         //criar conta
         for(int i=0;i<clients.size();i++){
             if (clients.get(i).getDocuments().getNumberDocument().equalsIgnoreCase(numberDocumentMain)){
                 if (value != 0) {
-                    accounts.add(new Account(posAccount + 1, clients.get(i), value));
+                    acc = new Account(posAccount + 1, clients.get(i), value);
                 }else{
-                    accounts.add(new Account(posAccount + 1, clients.get(i)));
+                    acc = new Account(posAccount + 1, clients.get(i));
                 }
+                clients.get(i).addAccount(acc);
             }
         }
         //adicionar outros clientes há conta
         for(int i=0; i<numberDocumentOthers.size();i++){
             for(int j=0;j<clients.size();j++){
                 if (clients.get(j).getDocuments().getNumberDocument().equalsIgnoreCase(numberDocumentOthers.get(i))){
-                    accounts.get(posAccount).addOtherClients(clients.get(j));
+                    acc.addOtherClients(clients.get(j));
+                    clients.get(j).addAccount(acc);
                 }
             }
         }
+        accounts.add(acc);
         return posAccount + 1;
 
     }
@@ -116,15 +120,10 @@ public class Bank {
     }
     public List<Long> idAccounts_Client(String numberDocument){
         List<Long> idAccounts = new LinkedList<Long>();
-        for(int i=0;i<accounts.size();i++){
-            //verificar o cliente principal da conta
-            if(accounts.get(i).getMainClient().getDocuments().getNumberDocument().equalsIgnoreCase(numberDocument)){
-                idAccounts.add(accounts.get(i).getAccId());
-            }
-            //verificar os outros clientes da conta
-            for(int j=0; j<accounts.get(j).getOtherClients().size(); j++){
-                if(accounts.get(j).getOtherClients().get(j).getDocuments().getNumberDocument().equalsIgnoreCase(numberDocument)){
-                    idAccounts.add(accounts.get(i).getAccId());
+        for(int i=0; i<clients.size();i++){
+            if(clients.get(i).getDocuments().getNumberDocument().equalsIgnoreCase(numberDocument)){
+                for(int j=0; j<clients.get(i).getAccounts().size(); j++){
+                    idAccounts.add( clients.get(i).getAccounts().get(j).getAccId() );
                 }
             }
         }
