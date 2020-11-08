@@ -129,12 +129,13 @@ public class Account {
      *
      * @param value he value to be debited to the account balance.
      */
-    public void debit(double value) {
+    public boolean debit(double value) {
         if(this.accBalance - value >= 0){
             Tax tax = new Tax();
             this.accBalance = this.accBalance - value - tax.getValue();
             this.accMovements.add(new AccMovement(actual_date(), value, tax.getValue(), 'd'));
-        }
+            return true;
+        }else{return false;}
     }
 
 

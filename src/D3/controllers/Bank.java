@@ -130,6 +130,21 @@ public class Bank {
         }
         return idAccounts;
     }
+    public Boolean debit_account(long accId, double value){
+        for(int i=0; i<accounts.size(); i++){
+            if(accounts.get(i).getAccId() == accId){
+                return accounts.get(i).debit(value);
+            }
+        }
+        return false;
+    }
+    public void credit_account(long accId, double value){
+        for(int i=0; i<accounts.size(); i++){
+            if(accounts.get(i).getAccId() == accId){
+                accounts.get(i).credit(value);
+            }
+        }
+    }
     public void imprimir_clientes(){
         for(int i=0;i<clients.size();i++){
             System.out.println(clients.get(i).getDocuments().getNumberDocument());

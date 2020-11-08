@@ -232,7 +232,83 @@ public class Main {
 
     }
     static void commandM(Bank bk, Scanner sc){
+        System.out.print("Sabe o número da conta (S ou N)? ");
+        char choice = sc.next().charAt(0);
+        if (choice == 'S'){
+            System.out.print("Número da conta: ");
+            long accId = sc.nextLong();
+            while(!bk.account_existent(accId)) {
+                System.out.println("\nO número da conta inserido não corresponde a nenhuma conta já criada. ");
+                System.out.print("Insira outro Número de Documento: ");
+                accId = sc.nextLong();
 
+            }
+
+            //escolher o tipo de movimento
+            System.out.print("Pretende fazer um Débito (D) ou um Crédito (C)? ");
+            char choice2 = sc.next().charAt(0);
+
+            System.out.print("Insira o valor do movimento: ");
+            double value = sc.nextDouble();
+
+            switch (choice2){
+                case 'D':
+                    if(bk.debit_account(accId, value)) {
+                        System.out.println("O movimento foi executado com sucesso!");
+                    }else{
+                        System.out.println("O movimento não foi executado!");
+                    }
+                    break;
+                case 'C':
+                    bk.credit_account(accId, value);
+                    System.out.println("O movimento foi executado com sucesso!");
+                    break;
+            }
+
+        }else{ //caso não saiba o numero da conta, vai inserir o cliente e procurar as contas associadas ao cliente
+            System.out.print("\nInsira o número do documento associado há sua conta: ");
+            String numberDocument = sc.next();
+
+            while(!bk.document_existent(numberDocument)) {
+                System.out.println("\nNúmero de Documento inserido não está registado. ");
+                System.out.print("Insira outro Número de Documento: ");
+                numberDocument = sc.next();
+            }
+            //idAccounts tem todos os ids das contas associadas ao cliente
+            List<Long> idAccounts = bk.idAccounts_Client(numberDocument);
+            if(idAccounts.size() == 0){
+                System.out.println("O cliente não tem contas associadas a ele.");
+            }else{
+                System.out.println("Os Ids das contas associadas ao cliente são os seguintes:");
+                for(int i=0; i<idAccounts.size(); i++){
+                    System.out.println("\t" + (i+1) + ") " + idAccounts.get(i));
+                }
+                System.out.println("Insira o numero da conta que deseja consultar o saldo: ");
+                int number = sc.nextInt();
+
+                //escolher o tipo de movimento
+                System.out.print("Pretende fazer um Débito (D) ou um Crédito (C)? ");
+                char choice2 = sc.next().charAt(0);
+
+                System.out.print("Insira o valor do movimento: ");
+                double value = sc.nextDouble();
+
+                switch (choice2){
+                    case 'D':
+                        if(bk.debit_account(number, value)) {
+                            System.out.println("O movimento foi executado com sucesso!");
+                        }else{
+                            System.out.println("O movimento não foi executado!");
+                        }
+                        break;
+                    case 'C':
+                        bk.credit_account(number, value);
+                        System.out.println("O movimento foi executado com sucesso!");
+                        break;
+                }
+
+            }
+        }
     }
     static void commandSC(Bank bk, Scanner sc){
         System.out.print("Sabe o número da conta (S ou N)? ");
@@ -246,7 +322,7 @@ public class Main {
                 accId = sc.nextLong();
 
             }
-
+            //verifica o saldo da conta
             System.out.println("\nO saldo da conta " + accId + ": " + bk.balance_account(accId));
 
         }else{ //caso não saiba o numero da conta, vai inserir o cliente e procurar as contas associadas ao cliente
@@ -269,6 +345,8 @@ public class Main {
                 }
                 System.out.println("Insira o numero da conta que deseja consultar o saldo: ");
                 int number = sc.nextInt();
+
+                //verifica o saldo da conta
                 System.out.println("\nO saldo da conta " + idAccounts.get(number-1) + ": " + bk.balance_account(idAccounts.get(number-1)));
 
 
