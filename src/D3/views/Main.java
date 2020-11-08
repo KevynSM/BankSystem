@@ -7,6 +7,8 @@ import D3.models.Client;
 
 
 import java.sql.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -142,6 +144,7 @@ public class Main {
                 System.out.print("Novo Nome: ");
                 String name = sc.next();
                 bk.alter_client_name(numberDocument,name);
+                System.out.print("O Nome foi alterado com Sucesso!");
 
                 break;
             case 2:
@@ -153,28 +156,123 @@ public class Main {
                 day = Integer.parseInt(birthDayString.substring(8, 9));
                 Date birthDay = new Date(year, month, day);
                 bk.alter_client_birthDay(numberDocument, birthDay);
+                System.out.print("A Data de Nascimento foi alterada com Sucesso!");
 
                 break;
             case 3:
                 System.out.print("Novo Email: ");
                 String email = sc.next();
                 bk.alter_client_email(numberDocument,email);
+                System.out.print("O Email foi alterado com Sucesso!");
                 break;
             case 4:
                 System.out.print("Novo Contacto Telefónico: ");
                 int phoneNumber = sc.nextInt();
                 bk.alter_client_phoneNumber(numberDocument,phoneNumber);
+                System.out.print("O Contacto Telefónico foi alterado com Sucesso!");
+                break;
+            case 5:
+                System.out.println("Novo Endereço ");
+                System.out.print("Street: ");
+                String street = sc.next();
+                System.out.print("Postal Code: ");
+                String postalCode = sc.next();
+                System.out.print("City: ");
+                String city = sc.next();
+                System.out.print("country: ");
+                String country = sc.next();
+
+                bk.alter_client_address(numberDocument,street, postalCode, city, country);
+                System.out.print("O Endereço foi alterado com Sucesso!");
                 break;
         }
 
     }
     static void commandNC(Bank bk, Scanner sc){
+        List<String> numberDocumentOthers = new LinkedList<String>();
+        char choice;
+        double value;
+        //inserir cliente principal da conta
+        System.out.print("Insira o número do documento do Cliente Principal da Conta a ser criada:");
+        String numberDocumentMain = sc.next();
+
+        while(!bk.document_existent(numberDocumentMain)) {
+            System.out.println("\nNúmero de Documento inserido não está registado. ");
+            System.out.print("Insira outro Número de Documento: ");
+            numberDocumentMain = sc.next();
+
+        }
+        //inserir clientes secundários na conta
+        do{
+            System.out.print("Quer associar mais clientes à conta (S ou N)? ");
+            choice = sc.next().charAt(0);
+            if (choice == 'S'){
+                System.out.print("Insira o número do documento do Cliente Principal da Conta a ser criada:");
+                String numberOther = sc.next();
+                while(!bk.document_existent(numberDocumentMain)) {
+                    System.out.println("\nNúmero de Documento inserido não está registado. ");
+                    System.out.print("Insira outro Número de Documento: ");
+                    numberOther = sc.next();
+                }
+                numberDocumentOthers.add(numberOther);
+
+            }
+        }while(choice == 'S');
+
+        //depósito inicial
+        System.out.print("Pretende fazer um depósito inicial (S ou N)? ");
+        choice = sc.next().charAt(0);
+        if (choice == 'S'){
+            System.out.print("Insira o valor do depósito inicial: ");
+            value = sc.nextDouble();
+        }else{
+            value=0;
+        }
+        System.out.println("A conta foi criada com sucesso, com o seguinte código de conta: " + bk.add_account(numberDocumentMain, numberDocumentOthers, value));
 
     }
     static void commandM(Bank bk, Scanner sc){
 
     }
     static void commandSC(Bank bk, Scanner sc){
+        System.out.print("Sabe o número da conta (S ou N)? ");
+        char choice = sc.next().charAt(0);
+        if (choice == 'S'){
+            System.out.print("Número da conta: ");
+            long accId = sc.nextLong();
+            while(!bk.account_existent(accId)) {
+                System.out.println("\nO número da conta inserido não corresponde a nenhuma conta já criada. ");
+                System.out.print("Insira outro Número de Documento: ");
+                accId = sc.nextLong();
 
+            }
+
+            System.out.println("\nO saldo da conta " + accId + ": " + bk.balance_account(accId));
+
+        }else{ //caso não saiba o numero da conta, vai inserir o cliente e procurar as contas associadas ao cliente
+            System.out.print("\nInsira o número do documento associado há sua conta: ");
+            String numberDocument = sc.next();
+
+            while(!bk.document_existent(numberDocument)) {
+                System.out.println("\nNúmero de Documento inserido não está registado. ");
+                System.out.print("Insira outro Número de Documento: ");
+                numberDocument = sc.next();
+            }
+            //idAccounts tem todos os ids das contas associadas ao cliente
+            List<Long> idAccounts = bk.idAccounts_Client(numberDocument);
+            if(idAccounts.size() == 0){
+                System.out.println("O cliente não tem contas associadas a ele.");
+            }else{
+                System.out.println("Os Ids das contas associadas ao cliente são os seguintes:");
+                for(int i=0; i<idAccounts.size(); i++){
+                    System.out.println("\t" + (i+1) + ") " + idAccounts.get(i));
+                }
+                System.out.println("Insira o numero da conta que deseja consultar o saldo: ");
+                int number = sc.nextInt();
+                System.out.println("\nO saldo da conta " + idAccounts.get(number-1) + ": " + bk.balance_account(idAccounts.get(number-1)));
+
+
+            }
+        }
     }
 }
