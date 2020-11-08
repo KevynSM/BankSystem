@@ -16,11 +16,11 @@ public class Main {
     public static void main(String[] args){
 	    Bank bk = new Bank();
         Scanner sc = new Scanner(System.in);
-	    System.out.println("Sistema Bancário V1.0\n");
+	    System.out.println("Banking system V1.0\n");
 
 
         while(true){
-            System.out.print("Insira um Comando (0 para terminar): ");
+            System.out.print("Insert a Command (0 to finish): ");
             String comm = sc.next();
            // String[] comm2 = comm.split(" ", 8);
 
@@ -49,7 +49,7 @@ public class Main {
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Comando inserido não foi reconhecido.\n");
+                    System.out.println("Command entered was not recognized.\n");
 
             }
 
@@ -59,11 +59,11 @@ public class Main {
 
     static void commandRC(Bank bk, Scanner sc) {
         //inserir nome
-        System.out.print("Insira o nome: ");
+        System.out.print("Insert the name: ");
         String name = sc.next();
 
         //inserir data de nascimento
-        System.out.print("\nInsira Data de Nascimento (aaaa/mm/dd):  ");
+        System.out.print("\nInsert the birth date (yyyy/mm/dd):  ");
         String birthDayString = sc.next();
         int year, month, day;
         year = Integer.parseInt(birthDayString.substring(0, 3));
@@ -76,38 +76,38 @@ public class Main {
         //inserir documento
 
 
-        System.out.println("\nInserir dados do Documento ");
+        System.out.println("\nInsert documents ");
 
 
         //tipo do documento
-        System.out.print("Tipo de Documento (C-Cartão de Cidadão ou P-Passaporte): ");
+        System.out.print("Type of the document (C-Citizen Card or P-Passport): ");
         char typeDocument = sc.next().charAt(0);
 
         while(typeDocument != 'C' && typeDocument != 'P') {
-            System.out.println("\nTipo de Documento não aceite.\nApenas é aceite C-Cartão de Cidadão ou P-Passaporte.  ");
-            System.out.print("Insira outra vez o Tipo de Documente aceite: ");
+            System.out.println("\nType of document was not recognized.\nIt is only allowed C-Citizen Card or P-Passport.  ");
+            System.out.print("Insert again the document type allowed: ");
             typeDocument = sc.next().charAt(0);
         }
 
 
         //numero do documento
-        System.out.print("\nNúmero de Documento: ");
+        System.out.print("\nDocument number: ");
         String numberDocument = sc.next();
         while(bk.document_existent(numberDocument)){
-            System.out.println("\nNúmero de Documento já registado. ");
-            System.out.print("Insira outro Número de Documento: ");
+            System.out.println("\nDocument number already registered. ");
+            System.out.print("Insert another document number: ");
             numberDocument = sc.next();
         }
         //inserir email
-        System.out.print("\nInserir Email: ");
+        System.out.print("\nInsert Email: ");
         String email = sc.next();
 
         //inserir contacto
-        System.out.print("\nInserir Contacto Telefónico: ");
+        System.out.print("\nInsert phone number: ");
         int phoneNumber = sc.nextInt();
 
         //inserir endereço
-        System.out.println("\nInserir Endereço ");
+        System.out.println("\nInsert address ");
 
         System.out.print("Street: ");
         String street = sc.next(); sc.nextLine();
@@ -123,32 +123,32 @@ public class Main {
 
 
         bk.add_client(name, birthDay, typeDocument, numberDocument, email, phoneNumber, street, postalCode, city, country);
-        System.out.println("\nCliente Adicionado com sucesso!\n");
+        System.out.println("\nClient added successfully!\n");
     }
     static void commandAC(Bank bk, Scanner sc){
-        System.out.print("Insira o número do documento:");
+        System.out.print("Insert the document number:");
         String numberDocument = sc.next();
 
         while(!bk.document_existent(numberDocument)) {
-            System.out.println("\nNúmero de Documento inserido não está registado. ");
-            System.out.print("Insira outro Número de Documento: ");
+            System.out.println("\nDocument number inserted is not registered. ");
+            System.out.print("Insert another document number: ");
             numberDocument = sc.next();
 
         }
-        System.out.println("\n\nAlteração dos dados do Cliente");
+        System.out.println("\n\nChange Client data");
         System.out.println(bk.data_client(numberDocument));
-        System.out.print("Insira o número do dado que quer alterar: ");
+        System.out.print("Insert the number of the data you want to change: ");
         int opcao = sc.nextInt();
         switch(opcao){
             case 1:
-                System.out.print("Novo Nome: ");
+                System.out.print("New name: ");
                 String name = sc.next();
                 bk.alter_client_name(numberDocument,name);
-                System.out.print("O Nome foi alterado com Sucesso!");
+                System.out.print("The name was changed successfully!");
 
                 break;
             case 2:
-                System.out.print("Nova Datebirth: ");
+                System.out.print("New Birth Date: ");
                 String birthDayString = sc.next();
                 int year, month, day;
                 year = Integer.parseInt(birthDayString.substring(0, 3));
@@ -156,23 +156,23 @@ public class Main {
                 day = Integer.parseInt(birthDayString.substring(8, 9));
                 Date birthDay = new Date(year, month, day);
                 bk.alter_client_birthDay(numberDocument, birthDay);
-                System.out.print("A Data de Nascimento foi alterada com Sucesso!");
+                System.out.print("The birth date was changed successfully!");
 
                 break;
             case 3:
-                System.out.print("Novo Email: ");
+                System.out.print("New Email: ");
                 String email = sc.next();
                 bk.alter_client_email(numberDocument,email);
-                System.out.print("O Email foi alterado com Sucesso!");
+                System.out.print("The Email was changed successfully!");
                 break;
             case 4:
-                System.out.print("Novo Contacto Telefónico: ");
+                System.out.print("New phone number: ");
                 int phoneNumber = sc.nextInt();
                 bk.alter_client_phoneNumber(numberDocument,phoneNumber);
-                System.out.print("O Contacto Telefónico foi alterado com Sucesso!");
+                System.out.print("The phone number was changed successfully!");
                 break;
             case 5:
-                System.out.println("Novo Endereço ");
+                System.out.println("New Address ");
                 System.out.print("Street: ");
                 String street = sc.next();
                 System.out.print("Postal Code: ");
@@ -183,7 +183,7 @@ public class Main {
                 String country = sc.next();
 
                 bk.alter_client_address(numberDocument,street, postalCode, city, country);
-                System.out.print("O Endereço foi alterado com Sucesso!");
+                System.out.print("The address was changed successfully!");
                 break;
         }
 
@@ -193,25 +193,25 @@ public class Main {
         char choice;
         double value;
         //inserir cliente principal da conta
-        System.out.print("Insira o número do documento do Cliente Principal da Conta a ser criada:");
+        System.out.print("Insert the document number of the main client of the account to be created:");
         String numberDocumentMain = sc.next();
 
         while(!bk.document_existent(numberDocumentMain)) {
-            System.out.println("\nNúmero de Documento inserido não está registado. ");
-            System.out.print("Insira outro Número de Documento: ");
+            System.out.println("\nThe number of the inserted document is not registered. ");
+            System.out.print("Insert another document number: ");
             numberDocumentMain = sc.next();
 
         }
         //inserir clientes secundários na conta
         do{
-            System.out.print("Quer associar mais clientes à conta (S ou N)? ");
+            System.out.print("Do you wish to associate more clients to the account (S ou N)? ");
             choice = sc.next().charAt(0);
             if (choice == 'S'){
-                System.out.print("Insira o número do documento do Cliente Principal da Conta a ser criada:");
+                System.out.print("Insert the document number of the associated client of the account to be created:");
                 String numberOther = sc.next();
                 while(!bk.document_existent(numberDocumentMain)) {
-                    System.out.println("\nNúmero de Documento inserido não está registado. ");
-                    System.out.print("Insira outro Número de Documento: ");
+                    System.out.println("\nThe number of the inserted document is not registered. ");
+                    System.out.print("Insert another document number: ");
                     numberOther = sc.next();
                 }
                 numberDocumentOthers.add(numberOther);
@@ -220,90 +220,90 @@ public class Main {
         }while(choice == 'S');
 
         //depósito inicial
-        System.out.print("Pretende fazer um depósito inicial (S ou N)? ");
+        System.out.print("Do you wish to make a first deposit (S ou N)? ");
         choice = sc.next().charAt(0);
         if (choice == 'S'){
-            System.out.print("Insira o valor do depósito inicial: ");
+            System.out.print("Insert the value of the first deposit: ");
             value = sc.nextDouble();
         }else{
             value=0;
         }
-        System.out.println("A conta foi criada com sucesso, com o seguinte código de conta: " + bk.add_account(numberDocumentMain, numberDocumentOthers, value));
+        System.out.println("The account was created successfully, with the following account code: " + bk.add_account(numberDocumentMain, numberDocumentOthers, value));
 
     }
     static void commandM(Bank bk, Scanner sc){
-        System.out.print("Sabe o número da conta (S ou N)? ");
+        System.out.print("Do you know the account number (S ou N)? ");
         char choice = sc.next().charAt(0);
         if (choice == 'S'){
-            System.out.print("Número da conta: ");
+            System.out.print("Account number: ");
             long accId = sc.nextLong();
             while(!bk.account_existent(accId)) {
-                System.out.println("\nO número da conta inserido não corresponde a nenhuma conta já criada. ");
-                System.out.print("Insira outro Número de Documento: ");
+                System.out.println("\nThe account number inserted does not correspond to any already account created. ");
+                System.out.print("Insert another document number: ");
                 accId = sc.nextLong();
 
             }
 
             //escolher o tipo de movimento
-            System.out.print("Pretende fazer um Débito (D) ou um Crédito (C)? ");
+            System.out.print("Do you wish to make a Debit (D) or a Credit (C)? ");
             char choice2 = sc.next().charAt(0);
 
-            System.out.print("Insira o valor do movimento: ");
+            System.out.print("Insert the value of the movement: ");
             double value = sc.nextDouble();
 
             switch (choice2){
                 case 'D':
                     if(bk.debit_account(accId, value)) {
-                        System.out.println("O movimento foi executado com sucesso!");
+                        System.out.println("The movement was successfully executed!");
                     }else{
-                        System.out.println("O movimento não foi executado!");
+                        System.out.println("The movement was not executed!");
                     }
                     break;
                 case 'C':
                     bk.credit_account(accId, value);
-                    System.out.println("O movimento foi executado com sucesso!");
+                    System.out.println("The movement was successfully executed!");
                     break;
             }
 
         }else{ //caso não saiba o numero da conta, vai inserir o cliente e procurar as contas associadas ao cliente
-            System.out.print("\nInsira o número do documento associado há sua conta: ");
+            System.out.print("\nInsert the document number associated with your account: ");
             String numberDocument = sc.next();
 
             while(!bk.document_existent(numberDocument)) {
-                System.out.println("\nNúmero de Documento inserido não está registado. ");
-                System.out.print("Insira outro Número de Documento: ");
+                System.out.println("\nThe number of the inserted document is not registered. ");
+                System.out.print("Insert another document number: ");
                 numberDocument = sc.next();
             }
             //idAccounts tem todos os ids das contas associadas ao cliente
             List<Long> idAccounts = bk.idAccounts_Client(numberDocument);
             if(idAccounts.size() == 0){
-                System.out.println("O cliente não tem contas associadas a ele.");
+                System.out.println("The client does not have associated accounts.");
             }else{
-                System.out.println("Os Ids das contas associadas ao cliente são os seguintes:");
+                System.out.println("The account IDs associated with the client are as follows:");
                 for(int i=0; i<idAccounts.size(); i++){
                     System.out.println("\t" + (i+1) + ") " + idAccounts.get(i));
                 }
-                System.out.println("Insira o numero da conta que deseja consultar o saldo: ");
+                System.out.println("Insert the account number you wish to check the balance: ");
                 int number = sc.nextInt();
 
                 //escolher o tipo de movimento
-                System.out.print("Pretende fazer um Débito (D) ou um Crédito (C)? ");
+                System.out.print("Do you wish to make a Debit (D) or a Credit (C)? ");
                 char choice2 = sc.next().charAt(0);
 
-                System.out.print("Insira o valor do movimento: ");
+                System.out.print("Insert the value of the movement: ");
                 double value = sc.nextDouble();
 
                 switch (choice2){
                     case 'D':
                         if(bk.debit_account(number, value)) {
-                            System.out.println("O movimento foi executado com sucesso!");
+                            System.out.println("The movement was successfully executed!");
                         }else{
-                            System.out.println("O movimento não foi executado!");
+                            System.out.println("The movement was not executed!");
                         }
                         break;
                     case 'C':
                         bk.credit_account(number, value);
-                        System.out.println("O movimento foi executado com sucesso!");
+                        System.out.println("The movement was successfully executed!");
                         break;
                 }
 
@@ -311,43 +311,43 @@ public class Main {
         }
     }
     static void commandSC(Bank bk, Scanner sc){
-        System.out.print("Sabe o número da conta (S ou N)? ");
+        System.out.print("Do you know the account number (S ou N)? ");
         char choice = sc.next().charAt(0);
         if (choice == 'S'){
-            System.out.print("Número da conta: ");
+            System.out.print("Account number: ");
             long accId = sc.nextLong();
             while(!bk.account_existent(accId)) {
-                System.out.println("\nO número da conta inserido não corresponde a nenhuma conta já criada. ");
-                System.out.print("Insira outro Número de Documento: ");
+                System.out.println("\nThe number of the inserted document is not registered. ");
+                System.out.print("Insert another document number: ");
                 accId = sc.nextLong();
 
             }
             //verifica o saldo da conta
-            System.out.println("\nO saldo da conta " + accId + ": " + bk.balance_account(accId));
+            System.out.println("\nThe account balance " + accId + ": " + bk.balance_account(accId));
 
         }else{ //caso não saiba o numero da conta, vai inserir o cliente e procurar as contas associadas ao cliente
-            System.out.print("\nInsira o número do documento associado há sua conta: ");
+            System.out.print("\nInsert the document number associated with your account: ");
             String numberDocument = sc.next();
 
             while(!bk.document_existent(numberDocument)) {
-                System.out.println("\nNúmero de Documento inserido não está registado. ");
-                System.out.print("Insira outro Número de Documento: ");
+                System.out.println("\nThe number of the inserted document is not registered. ");
+                System.out.print("Insert another document number: ");
                 numberDocument = sc.next();
             }
             //idAccounts tem todos os ids das contas associadas ao cliente
             List<Long> idAccounts = bk.idAccounts_Client(numberDocument);
             if(idAccounts.size() == 0){
-                System.out.println("O cliente não tem contas associadas a ele.");
+                System.out.println("The client does not have associated accounts.");
             }else{
-                System.out.println("Os Ids das contas associadas ao cliente são os seguintes:");
+                System.out.println("The account IDs associated with the client are as follows:");
                 for(int i=0; i<idAccounts.size(); i++){
                     System.out.println("\t" + (i+1) + ") " + idAccounts.get(i));
                 }
-                System.out.println("Insira o numero da conta que deseja consultar o saldo: ");
+                System.out.println("Insert the account number you wish to check the balance: ");
                 int number = sc.nextInt();
 
                 //verifica o saldo da conta
-                System.out.println("\nO saldo da conta " + idAccounts.get(number-1) + ": " + bk.balance_account(idAccounts.get(number-1)));
+                System.out.println("\nThe account balance " + idAccounts.get(number-1) + ": " + bk.balance_account(idAccounts.get(number-1)));
 
 
             }
