@@ -21,7 +21,7 @@ public class Main {
 
         while(true){
             System.out.print("Insert a Command (0 to finish): ");
-            String comm = sc.next();
+            String comm = sc.nextLine();
            // String[] comm2 = comm.split(" ", 8);
 
             switch (comm){
@@ -60,7 +60,7 @@ public class Main {
     static void commandRC(Bank bk, Scanner sc) {
         //inserir nome
         System.out.print("Insert the name: ");
-        String name = sc.next();
+        String name = sc.nextLine();
 
         //inserir data de nascimento
         System.out.print("\nInsert the birth date (yyyy/mm/dd):  ");

@@ -36,6 +36,7 @@ public class Account {
      *
      * @param accId The identification number of the Account.
      * @param mainClient The main Client of the Account.
+     * @param firstDeposit The first deposit of the Account.     *
      */
     public Account(long accId, Client mainClient, double firstDeposit) {
         this.accId = accId;
@@ -128,6 +129,7 @@ public class Account {
     /** The debit operation
      *
      * @param value he value to be debited to the account balance.
+     * @return true if it was possible, false it was not
      */
     public boolean debit(double value) {
         if(this.accBalance - value >= 0){

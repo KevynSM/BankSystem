@@ -48,13 +48,28 @@ public class Client {
         return this.idClient;
     }
 
+    /** Sets the name of the Client.
+     *
+     * @param name The new name of the client.
+     */
     public void setName(String name){ this.name = name; }
 
+    /** Returns the name of the client.
+     *
+     * @return the name of the client.
+     */
     public String getName(){ return this.name;}
 
-
+    /** Sets the birthday of the Client.
+     *
+     * @param birthDay the new birthday o the Client.
+     */
     public void setBirthDay(Date birthDay){ this.birthDay = birthDay; }
 
+    /** Returns the birthday of the Client.
+     *
+     * @return the birthday of the Client.
+     */
     public Date getBirthDay(){ return this.birthDay;}
 
     /** Add a new Address object created with the given parameters
@@ -128,7 +143,7 @@ public class Client {
 
     /** Returns a list with all the Client's Accounts.
      *
-     * @return
+     * @return a list with all the Client's Accounts.
      */
     public List<Account> getAccounts() {
         return this.accounts;
